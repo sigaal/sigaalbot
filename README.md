@@ -1,24 +1,30 @@
 (function () {
 
+    // Change this to your GitHub username so you don't have to modify so many things.
     var fork = "sigaalBot";
 
+    // Define our function responsible for extending the bot.
     function extend() {
-       
+        // If the bot hasn't been loaded properly, try again in 1 second(s).
         if (!window.bot) {
           return setTimeout(extend, 1 * 1000);
         }
 
-      
+        // Precaution to make sure it is assigned properly.
         var bot = window.bot;
 
-        
+        // Load custom settings set below
         bot.retrieveSettings();
 
+        //Extend the bot here, either by calling another function or here directly.
+
+        // You can add more spam words to the bot.
         var spamWords = ['spam1', 'spam2', 'spam3', 'spam4'];
         for (var i = 0; i < spamWords.length; i++) {
           window.bot.chatUtilities.spam.push(spamWords[i]);
         }
 
+        // Example code for a bot command:
         bot.commands.baconCommand = {
           command: 'bacon',  // The command to be called. With the standard command literal this would be: !bacon
           rank: 'user', // Minimum user permission to use the command
@@ -32,10 +38,12 @@
           }
         };
 
+        // Load the chat package again to account for any changes
         bot.loadChat();
 
       }
 
+    //Change the bots default settings and make sure they are loaded on launch
 
     localStorage.setItem("basicBotsettings", JSON.stringify({
       botName: "basicBot",
@@ -103,7 +111,7 @@
       }
     }));
 
-
-    $.getScript("https://rawgit.com/basicBot/source/master/SigaalBot.js", extend);
+    // Start the bot and extend it when it has loaded.
+    $.getScript("https://rawgit.com/basicBot/source/master/basicBot.js", extend);
 
 }).call(this);
